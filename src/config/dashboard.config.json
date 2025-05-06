@@ -1,0 +1,103 @@
+{
+  "title": "Minimal Dashboard",
+  "sections": [
+    {
+      "id": "monitoring",
+      "name": "Monitoring",
+      "services": [
+        {
+          "id": "grafana",
+          "name": "Grafana",
+          "url": "https://grafana.com",
+          "icon": "LineChart"
+        },
+        {
+          "id": "prometheus",
+          "name": "Prometheus",
+          "url": "https://prometheus.io",
+          "icon": "BarChart"
+        },
+        {
+          "id": "kibana",
+          "name": "Kibana",
+          "url": "https://www.elastic.co/kibana",
+          "icon": "PieChart"
+        }
+      ]
+    },
+    {
+      "id": "databases",
+      "name": "Databases",
+      "services": [
+        {
+          "id": "postgresql",
+          "name": "PostgreSQL",
+          "url": "https://www.postgresql.org",
+          "icon": "Database"
+        },
+        {
+          "id": "mongodb",
+          "name": "MongoDB",
+          "url": "https://www.mongodb.com",
+          "icon": "Files"
+        }
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "Deployment",
+      "services": [
+        {
+          "id": "kubernetes",
+          "name": "Kubernetes",
+          "url": "https://kubernetes.io",
+          "icon": "Layers"
+        },
+        {
+          "id": "docker",
+          "name": "Docker",
+          "url": "https://www.docker.com",
+          "icon": "Ship"
+        },
+        {
+          "id": "github",
+          "name": "GitHub",
+          "url": "https://github.com",
+          "icon": "Github"
+        }
+      ]
+    },
+    {
+      "id": "databases-section",
+      "name": "Databases",
+      "services": [
+        {
+          "id": "mongo-db",
+          "name": "MongoDB",
+          "type": "info",
+          "icon": "Database",
+          "description": "Development MongoDB instance",
+          "credentials": {
+            "username": "admin",
+            "password": "secret123",
+            "port": "27017",
+            "connectionString": "mongodb://admin:secret123@192.168.1.125:27017"
+          }
+        },
+        {
+          "id": "postgres-db",
+          "name": "PostgreSQL",
+          "type": "info",
+          "icon": "Server",
+          "description": "Internal PostgreSQL",
+          "credentials": {
+            "username": "postgres",
+            "password": "pgpass",
+            "port": "5432",
+            "connectionString": "postgresql://postgres:pgpass@192.168.1.125:5432"
+          }
+        }
+      ]
+    }
+  ]
+}
