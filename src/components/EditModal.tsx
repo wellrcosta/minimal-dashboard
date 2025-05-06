@@ -74,15 +74,19 @@ export const EditModal = memo(
       () => (
         <InfoServiceFields
           description={editedService.description || ""}
+          url={editedService.url || ""}
           credentials={editedService.credentials}
           onDescriptionChange={handleDescriptionChange}
+          onUrlChange={handleUrlChange}
           onCredentialsChange={handleCredentialsChange}
         />
       ),
       [
         editedService.description,
+        editedService.url,
         editedService.credentials,
         handleDescriptionChange,
+        handleUrlChange,
         handleCredentialsChange,
       ]
     );

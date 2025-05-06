@@ -60,7 +60,6 @@ const ServiceCard = ({
       return () => null;
     }
 
-    // Verifica primeiro nos ícones personalizados
     const customIcon = CustomIcons[
       service.icon as keyof typeof CustomIcons
     ] as React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -68,7 +67,6 @@ const ServiceCard = ({
       return customIcon;
     }
 
-    // Se não encontrar nos ícones personalizados, usa os do Lucide
     return (
       (LucideIcons[
         service.icon as keyof typeof LucideIcons
@@ -153,72 +151,72 @@ const ServiceCard = ({
         {service.type === "info" && isExpanded && (
           <div className="ml-8 text-sm text-gray-500 dark:text-gray-300 space-y-2">
             {service.description && <p>{service.description}</p>}
+            {service.url && (
+              <p>
+                <strong>URL:</strong> {service.url}
+              </p>
+            )}
             {service.credentials && (
               <ul className="space-y-2">
-                <li className="flex items-center gap-2">
-                  <strong>User:</strong>
-                  <button
-                    onClick={() => setShowUsername(!showUsername)}
-                    className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600"
-                  >
-                    {showUsername ? (
-                      <EyeOff size={14} className="text-gray-500" />
-                    ) : (
-                      <Eye size={14} className="text-gray-500" />
+                {service.credentials.username && (
+                  <li className="flex items-center gap-2">
+                    <strong>User:</strong>
+                    <button
+                      onClick={() => setShowUsername(!showUsername)}
+                      className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600"
+                    >
+                      {showUsername ? (
+                        <EyeOff size={14} className="text-gray-500" />
+                      ) : (
+                        <Eye size={14} className="text-gray-500" />
+                      )}
+                    </button>
+                    {showUsername && (
+                      <span className="font-mono">
+                        {service.credentials.username}
+                      </span>
                     )}
-                  </button>
-                  {showUsername && (
-                    <span className="font-mono">
-                      {service.credentials.username || ""}
-                    </span>
-                  )}
-                </li>
-                <li className="flex items-center gap-2">
-                  <strong>Password:</strong>
-                  <button
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600"
-                  >
-                    {showPassword ? (
-                      <EyeOff size={14} className="text-gray-500" />
-                    ) : (
-                      <Eye size={14} className="text-gray-500" />
+                  </li>
+                )}
+                {service.credentials.password && (
+                  <li className="flex items-center gap-2">
+                    <strong>Password:</strong>
+                    <button
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600"
+                    >
+                      {showPassword ? (
+                        <EyeOff size={14} className="text-gray-500" />
+                      ) : (
+                        <Eye size={14} className="text-gray-500" />
+                      )}
+                    </button>
+                    {showPassword && (
+                      <span className="font-mono">
+                        {service.credentials.password}
+                      </span>
                     )}
-                  </button>
-                  {showPassword && (
-                    <span className="font-mono">
-                      {service.credentials.password || ""}
-                    </span>
-                  )}
-                </li>
-                {service.credentials.port && (
-                  <li>
-                    <strong>Port:</strong> {service.credentials.port}
                   </li>
                 )}
                 {service.credentials.connectionString && (
-                  <li className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <strong>Conn:</strong>
-                      <button
-                        onClick={() =>
-                          setShowConnectionString(!showConnectionString)
-                        }
-                        className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600"
-                      >
-                        {showConnectionString ? (
-                          <EyeOff size={14} className="text-gray-500" />
-                        ) : (
-                          <Eye size={14} className="text-gray-500" />
-                        )}
-                      </button>
-                    </div>
+                  <li className="flex items-center gap-2">
+                    <strong>Connection:</strong>
+                    <button
+                      onClick={() =>
+                        setShowConnectionString(!showConnectionString)
+                      }
+                      className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600"
+                    >
+                      {showConnectionString ? (
+                        <EyeOff size={14} className="text-gray-500" />
+                      ) : (
+                        <Eye size={14} className="text-gray-500" />
+                      )}
+                    </button>
                     {showConnectionString && (
-                      <div className="ml-8">
-                        <span className="font-mono text-xs break-all">
-                          {service.credentials.connectionString}
-                        </span>
-                      </div>
+                      <span className="font-mono">
+                        {service.credentials.connectionString}
+                      </span>
                     )}
                   </li>
                 )}
