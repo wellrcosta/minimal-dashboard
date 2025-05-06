@@ -13,8 +13,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 app.use(express.static(path.join(__dirname, "../dist")));
 
@@ -26,7 +26,7 @@ mongoose
   .then(() => {
     console.log("✅ Connected to MongoDB");
     console.log("MongoDB URI:", process.env.MONGO_URI);
-    console.log("Using database:", process.env.MONGO_URI?.split('/').pop());
+    console.log("Using database:", process.env.MONGO_URI?.split("/").pop());
     console.log("Registered models:", Object.keys(mongoose.models));
   })
   .catch((err) => {
@@ -35,16 +35,16 @@ mongoose
     process.exit(1);
   });
 
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
+mongoose.connection.on("error", (err) => {
+  console.error("MongoDB connection error:", err);
 });
 
-mongoose.connection.on('disconnected', () => {
-  console.log('MongoDB disconnected');
+mongoose.connection.on("disconnected", () => {
+  console.log("MongoDB disconnected");
 });
 
-mongoose.connection.on('connected', () => {
-  console.log('MongoDB connected');
+mongoose.connection.on("connected", () => {
+  console.log("MongoDB connected");
 });
 
 const dashboardSchema = new mongoose.Schema({
@@ -79,7 +79,7 @@ app.get("/api/dashboard", async (req, res) => {
 app.put("/api/dashboard", async (req: Request, res: Response) => {
   try {
     console.log("PUT /api/dashboard - Request body:", req.body);
-    
+
     if (!req.body) {
       console.error("No request body received");
       return res.status(400).json({ error: "No request body received" });
@@ -88,27 +88,29 @@ app.put("/api/dashboard", async (req: Request, res: Response) => {
     const { sections } = req.body;
 
     if (!Array.isArray(sections)) {
-      console.error('Invalid sections data:', sections);
-      return res.status(400).json({ error: "Invalid or missing 'sections' array." });
+      console.error("Invalid sections data:", sections);
+      return res
+        .status(400)
+        .json({ error: "Invalid or missing 'sections' array." });
     }
 
-    console.log('Updating dashboard with sections:', sections);
+    console.log("Updating dashboard with sections:", sections);
     const updated = await Dashboard.findByIdAndUpdate(
       "main-dashboard",
       { sections },
       { new: true, upsert: true }
-    ).catch(err => {
-      console.error('MongoDB update error:', err);
+    ).catch((err) => {
+      console.error("MongoDB update error:", err);
       throw err;
     });
 
-    console.log('Dashboard updated successfully:', updated);
+    console.log("Dashboard updated successfully:", updated);
     return res.json(updated);
   } catch (err) {
     console.error("PUT /api/dashboard error:", err);
-    return res.status(500).json({ 
+    return res.status(500).json({
       error: "Internal Server Error",
-      details: err instanceof Error ? err.message : 'Unknown error'
+      details: err instanceof Error ? err.message : "Unknown error",
     });
   }
 });
@@ -117,7 +119,7 @@ app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Dashboard running at http://localhost:${PORT}`);
 });
